@@ -314,6 +314,10 @@ function Polllist() {
     sessionStorage.setItem("polls", JSON.stringify([newPoll, ...polls]));
   };
 
+
+  //following are the functions for the likes and replies for the comment
+
+    //functions for the card expanding while clicking on the comments
   return (
     <>
       {polls.map((poll, index) => (

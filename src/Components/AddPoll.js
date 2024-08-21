@@ -282,17 +282,22 @@
 
 
 //------------------------------------------------------------- V 3 -------------------------------------------------------
+
+
 import React, { useState } from "react";
 import { Card, Button, Form, Row, Col, InputGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
-function AddPoll({ onPollSubmit }) {
+function AddPoll() {
   const [pollTitle, setPollTitle] = useState("");
   const [pollQuestion, setPollQuestion] = useState("");
   const [pollOptions, setPollOptions] = useState(["", ""]);
   const [votingPeriod, setVotingPeriod] = useState("");
   const [category, setCategory] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false); // New state for Snackbar
 
   const handleAddOption = () => {
     if (pollOptions.length < 4) {
@@ -324,6 +329,7 @@ function AddPoll({ onPollSubmit }) {
       name: "Rahul", // Use your name or fetch dynamically
       status: "Open",
     };
+    
 
     // Retrieve existing polls from session storage
     const existingPolls = JSON.parse(sessionStorage.getItem("polls")) || [];
@@ -335,7 +341,7 @@ function AddPoll({ onPollSubmit }) {
     sessionStorage.setItem("polls", JSON.stringify(updatedPolls));
 
     // Trigger update in the PollList component
-    onPollSubmit(updatedPolls);
+    // onPollSubmit(updatedPolls);
 
     // Clear the form
     setPollTitle("");
@@ -343,7 +349,18 @@ function AddPoll({ onPollSubmit }) {
     setPollOptions(["", ""]);
     setVotingPeriod("");
     setCategory("");
+
+    // Your existing logic for submitting the poll
+
+    setOpenSnackbar(true); // Show the snackbar when the button is clicked
+    
   };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false); // Close the snackbar
+
+  };
+
 
   return (
     <Card
@@ -470,9 +487,16 @@ function AddPoll({ onPollSubmit }) {
         <Button variant="primary" onClick={handleSubmit}>
           Post
         </Button>
+         {/* Snackbar for alerting poll creation success */}
+         <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                    Your Poll is Successfully created
+                </Alert>
+            </Snackbar>
       </Form>
     </Card>
   );
 }
 
 export default AddPoll;
+
