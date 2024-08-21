@@ -1,0 +1,65 @@
+.full-page {
+    background-color: #5A8D8E;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .verify-card {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  
+  .line-1 {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .text-danger {
+    color: red;
+  }
+  
+  .button-verify {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #06b4d6;
+    border: none;
+  }
+  
+  .button-verify:hover {
+    background-color: #05cff7;
+  }
+  
+  @media (max-width: 768px) {
+    .verify-card {
+      margin-top: 10px;
+    }
+  
+    .line-1 {
+      font-size: 16px;
+    }
+  
+    .button-verify {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .verify-card {
+      margin-top: 5px;
+    }
+  
+    .line-1 {
+      font-size: 14px;
+    }
+  
+    .button-verify {
+      width: 100%;
+    }
+  }
+  
