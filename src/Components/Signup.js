@@ -539,8 +539,8 @@ function Signup() {
                     <span style={{color:"green"}} className="verified-label">Verified</span>
                   )}
                 </div>
-
-                {/* {!otpVerified && (
+{/* 
+                {!otpVerified && (
                   <Form.Control
                     type="button"
                     className="z9"
@@ -555,8 +555,9 @@ function Signup() {
                     placeholder={otpSent ? 'Enter OTP' : 'Send OTP'}
                   />
                 )} */}
-
+               {!otpVerified && (
                 <button  className='otp-button'
+                            value="Verify OTP" type="button"
                         onClick={() => {
                           if (otpSent) {
                             verifyOtp();
@@ -565,7 +566,7 @@ function Signup() {
                           }
                         }}
                         placeholder={otpSent ? 'Enter OTP' : 'Send OTP'}
-                      >Verify</button>
+                      >Verify</button> )}
 
                 <h6>Date of Birth</h6>
                 <Row>
