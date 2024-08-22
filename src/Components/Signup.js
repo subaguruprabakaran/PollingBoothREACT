@@ -352,7 +352,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './Signup.css';
-
+import InputGroup from 'react-bootstrap/InputGroup';
 function Signup() {
   const startYear = 1901;
   const endYear = 2024;
@@ -385,10 +385,16 @@ function Signup() {
         .min(3, 'Name must be at least 3 characters')
         .required('Name is required'),
       email: Yup.string().email('Invalid email address')
-        .required('Email is required'),
+        .required('Email is required').test(
+          "email",
+          "Invalid email",
+          function (value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(value) 
+          }),
       phone: Yup.string()
         .matches(/^[0-9]{10}$/, 'Phone number must be 10 digits')
-        .required('Phone number is required'),
+        .required('Phone number is required') ,
       day: Yup.string().required('Date of Birth is required'),
       month: Yup.string().required('Month is required'),
       year: Yup.string().required('Year is required'),
@@ -684,7 +690,7 @@ function Signup() {
                 )}
                 <p></p>
 
-                <h6>Password</h6>
+                {/* <h6>Password</h6>
                 <div className="password-input-container">
                   <Form.Control
                     type={showPassword ? "text" : "password"}
@@ -723,7 +729,116 @@ function Signup() {
                   <Form.Control.Feedback type="invalid">
                     {formik.errors.confirmPassword}
                   </Form.Control.Feedback>
-                </div>
+                </div> */}
+
+<h6>Password</h6>
+<div className="passwordd-input-container">
+  <Form.Label>
+    <Form.Control
+      type={showPassword ? "text" : "password"}
+      placeholder="Password"
+      className="x8"
+      {...formik.getFieldProps('password')}
+      isInvalid={formik.touched.password && formik.errors.password}
+      onBlur={formik.handleBlur}
+    />
+  </Form.Label>
+  <span
+    className="passwordd-toggle-icon"
+    onClick={() => setShowPassword(!showPassword)}
+  >
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </span>
+  <Form.Control.Feedback type="invalid">
+    {formik.errors.password}
+  </Form.Control.Feedback>
+</div>
+
+<p></p>
+
+<div className="passwordd-input-container">
+  <Form.Label>
+    Confirm Password
+    <Form.Control
+      type={showConfirmPassword ? "text" : "password"}
+      placeholder="Confirm password"
+      className="x8"
+      {...formik.getFieldProps('confirmPassword')}
+      isInvalid={formik.touched.confirmPassword && formik.errors.confirmPassword}
+      onBlur={formik.handleBlur}
+    />
+  </Form.Label>
+  <span
+    className="password-toggle-icon"
+    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+  >
+    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+  </span>
+  <Form.Control.Feedback type="invalid">
+    {formik.errors.confirmPassword}
+  </Form.Control.Feedback>
+</div>
+
+
+{/* <div style={{marginTop:"-20px"}} className="password-input-container">
+  <InputGroup className="mb-3">
+    <InputGroup.Text id="inputGroup-sizing-default">
+      <span
+        className="password-toggle-icon"
+        onClick={() => setShowPassword(!showPassword)}
+      >
+        {showPassword ? <FaEyeSlash /> : <FaEye />}
+      </span>
+    </InputGroup.Text>
+    <Form.Label>
+      <Form.Control
+        type={showPassword ? "text" : "password"}
+        placeholder="Password"
+        className="x8"
+        {...formik.getFieldProps('password')}
+        isInvalid={formik.touched.password && formik.errors.password}
+        onBlur={formik.handleBlur}
+      />
+    </Form.Label>
+    
+    <Form.Control.Feedback type="invalid">
+      {formik.errors.password}
+    </Form.Control.Feedback>
+  </InputGroup>
+</div>
+
+
+<p></p>
+<div style={{marginTop:"-20px"}} className="passwordd-input-container">
+<InputGroup className="mb-3">
+<InputGroup.Text id="inputGroup-sizing-default">
+<span
+    className="passwordd-toggle-icon"
+    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+  >
+    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+  </span>
+        </InputGroup.Text>
+<Form.Label>
+    <Form.Control
+      type={showConfirmPassword ? "text" : "password"}
+      placeholder="Confirm password"
+      className="x8"
+      {...formik.getFieldProps('confirmPassword')}
+      isInvalid={formik.touched.confirmPassword && formik.errors.confirmPassword}
+      onBlur={formik.handleBlur}
+    />
+  </Form.Label>
+  
+  <Form.Control.Feedback type="invalid">
+    {formik.errors.confirmPassword}
+  </Form.Control.Feedback>
+        
+      </InputGroup>
+
+ 
+</div> */}
+
                 <p></p>
                 <div className='text-center'>
                   <button type="submit" className='z9'>Sign Up</button>

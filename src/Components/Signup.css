@@ -217,3 +217,15 @@
     background-color: #05cff7;
     height: 14;
   }
+
+
+  .passwordd-input-container{
+    width: 275px;
+    margin-top: 15px;
+    
+
+  }
+
+.passwordd-toggle-icon{
+  margin-top: -15px;
+}
