@@ -351,6 +351,8 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import './Signup.css';
 import InputGroup from 'react-bootstrap/InputGroup';
 function Signup() {
@@ -365,6 +367,7 @@ function Signup() {
   const [otpVerified, setOtpVerified] = React.useState(false);
   const [otpError, setOtpError] = React.useState('');
   const [showModal, setShowModal] = React.useState(false);
+  
 
   const navigate = useNavigate();
 
@@ -393,7 +396,7 @@ function Signup() {
             return emailRegex.test(value) 
           }),
       phone: Yup.string()
-        .matches(/^[0-9]{10}$/, 'Phone number must be 10 digits')
+        .matches(/^\d{10}$/, 'Phone number must be 10 digits')
         .required('Phone number is required') ,
       day: Yup.string().required('Date of Birth is required'),
       month: Yup.string().required('Month is required'),
@@ -418,6 +421,15 @@ function Signup() {
       }
     },
   });
+  let [records,setRecords]=useState([])
+  // useEffect(()=>{
+  //   axios.get("http://localhost:3000/user/signup") .then(res=>{
+  //     setRecords(res.data)
+  //     console.log(res.data)
+  //   })
+    
+  // },[])
+  
 
   const handleLoginClick = () => {
     navigate('/Loginpg');
@@ -445,8 +457,34 @@ function Signup() {
       setOtpError('Invalid OTP. Please try again.');
     }
   };
-
   const handleCloseModal = () => setShowModal(false);
+
+  let handleSignup=()=>{
+
+    let dob=new Date(formik.values.year,formik.values.month,formik.values.day)
+    console.log(dob)
+    let currentdate=new Date()
+    console.log(currentdate)
+   
+   
+    console.log(new Date(formik.values.year,formik.values.month,formik.values.day))
+  
+    let age1= currentdate.getFullYear()-dob.getFullYear()
+    console.log(formik.values)
+    let signupdata={
+      user_name:formik.values.name,
+      e_mail:formik.values.email,
+      phone:formik.values.phone,
+      gender:formik.values.gender,
+      age:age1,
+      dob:new Date(formik.values.year,formik.values.month,formik.values.day)
+
+
+    }
+    
+    axios.post("http://localhost:3000/user/signup",signupdata)
+    alert("created successfully")
+  }
 
   return (
     <div className="signup-container">
@@ -515,6 +553,7 @@ function Signup() {
                 <button type="button" className="otp-button" onClick={sendOtp} disabled={otpSent}>
                   {otpSent ? 'OTP Sent' : 'Send OTP'}
                 </button> */}
+                
 
 <div className="phone-input-container">
                   <Row>
@@ -535,6 +574,7 @@ function Signup() {
                         {...formik.getFieldProps('phone')}
                         isInvalid={formik.touched.phone && formik.errors.phone}
                         onBlur={formik.handleBlur}
+                        maxLength={10}
                       />
                       <Form.Control.Feedback type="invalid">
                         {formik.errors.phone}
@@ -732,7 +772,7 @@ function Signup() {
                 </div> */}
 
 <h6>Password</h6>
-<div className="passwordd-input-container">
+{/* <div className="passwordd-input-container">
   <Form.Label>
     <Form.Control
       type={showPassword ? "text" : "password"}
@@ -741,6 +781,7 @@ function Signup() {
       {...formik.getFieldProps('password')}
       isInvalid={formik.touched.password && formik.errors.password}
       onBlur={formik.handleBlur}
+      maxLength={6}
     />
   </Form.Label>
   <span
@@ -751,14 +792,14 @@ function Signup() {
   </span>
   <Form.Control.Feedback type="invalid">
     {formik.errors.password}
+    
   </Form.Control.Feedback>
 </div>
 
 <p></p>
 
-<div className="passwordd-input-container">
+<div style={{marginTop:"-20px"}} className="passwordd-input-container">
   <Form.Label>
-    Confirm Password
     <Form.Control
       type={showConfirmPassword ? "text" : "password"}
       placeholder="Confirm password"
@@ -766,10 +807,11 @@ function Signup() {
       {...formik.getFieldProps('confirmPassword')}
       isInvalid={formik.touched.confirmPassword && formik.errors.confirmPassword}
       onBlur={formik.handleBlur}
+      maxLength={6}
     />
   </Form.Label>
   <span
-    className="password-toggle-icon"
+    className="passwordd-toggle-icon"
     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
   >
     {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
@@ -777,21 +819,15 @@ function Signup() {
   <Form.Control.Feedback type="invalid">
     {formik.errors.confirmPassword}
   </Form.Control.Feedback>
-</div>
+</div> */}
 
 
-{/* <div style={{marginTop:"-20px"}} className="password-input-container">
+<div  className="password-input-container">
   <InputGroup className="mb-3">
-    <InputGroup.Text id="inputGroup-sizing-default">
-      <span
-        className="password-toggle-icon"
-        onClick={() => setShowPassword(!showPassword)}
-      >
-        {showPassword ? <FaEyeSlash /> : <FaEye />}
-      </span>
-    </InputGroup.Text>
+    
     <Form.Label>
       <Form.Control
+      style={{width:"425px"}}
         type={showPassword ? "text" : "password"}
         placeholder="Password"
         className="x8"
@@ -800,6 +836,15 @@ function Signup() {
         onBlur={formik.handleBlur}
       />
     </Form.Label>
+    {/* <InputGroup.Text id="inputGroup-sizing-default"> */}
+      <span
+      style={{marginTop:"-10px"}}
+        className="password-toggle-icon"
+        onClick={() => setShowPassword(!showPassword)}
+      >
+        {showPassword ? <FaEyeSlash /> : <FaEye />}
+      </span>
+    {/* </InputGroup.Text> */}
     
     <Form.Control.Feedback type="invalid">
       {formik.errors.password}
@@ -811,16 +856,10 @@ function Signup() {
 <p></p>
 <div style={{marginTop:"-20px"}} className="passwordd-input-container">
 <InputGroup className="mb-3">
-<InputGroup.Text id="inputGroup-sizing-default">
-<span
-    className="passwordd-toggle-icon"
-    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-  >
-    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-  </span>
-        </InputGroup.Text>
+
 <Form.Label>
     <Form.Control
+    style={{width:"425px"}}
       type={showConfirmPassword ? "text" : "password"}
       placeholder="Confirm password"
       className="x8"
@@ -829,6 +868,15 @@ function Signup() {
       onBlur={formik.handleBlur}
     />
   </Form.Label>
+  {/* <InputGroup.Text id="inputGroup-sizing-default"> */}
+<span
+style={{paddingLeft:"7px",marginTop:"5px"}}
+    className="passwordd-toggle-icon"
+    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+  >
+    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+  </span>
+        {/* </InputGroup.Text> */}
   
   <Form.Control.Feedback type="invalid">
     {formik.errors.confirmPassword}
@@ -837,13 +885,13 @@ function Signup() {
       </InputGroup>
 
  
-</div> */}
+</div>
 
                 <p></p>
                 <div className='text-center'>
-                  <button type="submit" className='z9'>Sign Up</button>
+                  <button type="submit" className='z9' onClick={handleSignup}>Sign Up</button>
                 </div>
-                <p className='or'>or</p>
+                <p style={{marginBottom:"-2px"}} className='or'>or</p>
                 <div className='text-center'>
                   <button type="button" className='z10' onClick={handleLoginClick}>
                     Login
