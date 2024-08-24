@@ -293,9 +293,11 @@
 // export default Polllist;
 
 //------------------------------------------------------------- V3 -------------------------------------------------------
+
 import React, { useEffect, useState } from "react";
 import CardComp from "./Common/Card"; // Make sure this imports your Card component
 import "bootstrap/dist/css/bootstrap.min.css";
+import CommentsComp from "./Common/CommentsComp";
 
 function Polllist() {
   const [polls, setPolls] = useState([]);
@@ -314,28 +316,63 @@ function Polllist() {
     sessionStorage.setItem("polls", JSON.stringify([newPoll, ...polls]));
   };
 
+  const [currentView, setCurrentView] = useState("cards");
+  const [selectedCardData, setSelectedCardData] = useState(null);
 
+  const handleCardClick = (cardData) => {
+    setSelectedCardData(cardData);
+    setCurrentView("comments");
+  };
+
+  const handleBackClick = () => {
+    setCurrentView("cards");
+  };
   //following are the functions for the likes and replies for the comment
 
-    //functions for the card expanding while clicking on the comments
+  
+
   return (
     <>
       {polls.map((poll, index) => (
         <CardComp
           key={index}
+          index={index}
           name={poll.name}
           createdon={poll.createdon}
-          title={poll.pollTitle} // Display the poll title
-          question={poll.pollQuestion} // Display the poll question
-          options={poll.pollOptions} // Display poll options
-          votingPeriod={poll.votingPeriod} // Display voting period
-          category={poll.category} // Display category
-          status={poll.status} // Display status
-          onPollSubmit={handlePollSubmit} // Pass the function here
+          title={poll.pollTitle} 
+          question={poll.pollQuestion} 
+          options={poll.pollOptions} 
+          votingPeriod={poll.votingPeriod} 
+          category={poll.category} 
+          status={poll.status} 
+          onPollSubmit={handlePollSubmit}
+          onCardClick={handleCardClick} 
         />
       ))}
+
+      {/* {currentView === "cards" ? (
+        <CardComp
+          name="John Doe"
+          createdon="2024-08-21"
+          title="Sample Poll"
+          status="Active"
+          question="What's your favorite color?"
+          options={["Red", "Blue", "Green"]}
+          votingPeriod="2024-08-30"
+          category="General"
+          onCardClick={handleCardClick} // Pass the handler to CardComp
+        />
+      ) : (
+        <CommentsComp
+          cardData={selectedCardData}
+          onBackClick={handleBackClick}
+        />
+      )} */}
     </>
   );
 }
 
 export default Polllist;
+
+//------------------------------------------------------------------------------------------
+
