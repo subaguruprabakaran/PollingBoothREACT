@@ -1111,6 +1111,7 @@ function CardComp({
   votingPeriod,
   category,
   onPollSubmit,
+  onCardClick,
 }) {
     let navigate=useNavigate()
     console.log(index)
@@ -1181,10 +1182,30 @@ function CardComp({
   };
 
 
-  let handleViewcomment=(commentkey)=>{
-    console.log(commentkey)
+  // let handleViewcomment=(commentkey)=>{
+  //   console.log(commentkey)
     // navigate('/viewcomment/' )
-  }
+  // }
+
+
+
+  const handleViewComment = () => {
+    onCardClick({
+      index,
+      name,
+      createdon,
+      title,
+      status,
+      question,
+      options,
+      votingPeriod,
+      category,
+      likeCount,
+      liked,
+      comments,
+    });
+  };
+console.log(options)
   return (
     <Card>
       <Card.Body>
@@ -1258,8 +1279,8 @@ function CardComp({
             like
           </p>
 
-        <p style={{ cursor: "pointer", color: "blue" }}>
-            <i className="bi bi-chat-quote-fill" onClick={()=>handleViewcomment(index)}></i> Comments
+        <p style={{ cursor: "pointer", color: "blue" }} onClick={()=>handleViewComment(index)}>
+            <i className="bi bi-chat-quote-fill" ></i> Comments
           </p>
 
           <p

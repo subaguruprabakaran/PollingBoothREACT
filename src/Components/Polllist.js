@@ -300,7 +300,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import CommentsComp from "./Common/CommentsComp";
 
 function Polllist() {
+  console.log(sessionStorage.getItem("polls"))
   const [polls, setPolls] = useState([]);
+  // const [currentView, setCurrentView] = useState("cards"); 
+  // const [selectedCardData, setSelectedCardData] = useState(null); 
 
   useEffect(() => {
     // Retrieve all polls from session storage
@@ -317,11 +320,13 @@ function Polllist() {
   };
 
   const [currentView, setCurrentView] = useState("cards");
+  console.log(currentView)
   const [selectedCardData, setSelectedCardData] = useState(null);
 
   const handleCardClick = (cardData) => {
     setSelectedCardData(cardData);
     setCurrentView("comments");
+    console.log(currentView)
   };
 
   const handleBackClick = () => {
@@ -333,7 +338,7 @@ function Polllist() {
 
   return (
     <>
-      {polls.map((poll, index) => (
+      {/* {polls.map((poll, index) => (
         <CardComp
           key={index}
           index={index}
@@ -348,26 +353,31 @@ function Polllist() {
           onPollSubmit={handlePollSubmit}
           onCardClick={handleCardClick} 
         />
-      ))}
-
-      {/* {currentView === "cards" ? (
-        <CardComp
-          name="John Doe"
-          createdon="2024-08-21"
-          title="Sample Poll"
-          status="Active"
-          question="What's your favorite color?"
-          options={["Red", "Blue", "Green"]}
-          votingPeriod="2024-08-30"
-          category="General"
-          onCardClick={handleCardClick} // Pass the handler to CardComp
-        />
+      ))} */}
+      {currentView === "cards" ? (
+        polls.map((poll, index) => (
+          <CardComp
+            key={index}
+            index={index}
+            name={poll.name}
+            createdon={poll.createdon}
+            title={poll.pollTitle}
+            status={poll.status}
+            question={poll.pollQuestion}
+            options={poll.pollOptions}
+            votingPeriod={poll.votingPeriod}
+            category={poll.category}
+            onPollSubmit={handlePollSubmit}
+            onCardClick={handleCardClick} // Pass the handleCardClick function
+          />
+        ))
       ) : (
         <CommentsComp
           cardData={selectedCardData}
-          onBackClick={handleBackClick}
+          onBackClick={handleBackClick} // Handle the back button click
         />
-      )} */}
+      )}
+     
     </>
   );
 }

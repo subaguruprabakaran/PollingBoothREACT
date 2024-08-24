@@ -339,7 +339,7 @@ function AddPoll() {
 
     // Store the updated polls in session storage
     sessionStorage.setItem("polls", JSON.stringify(updatedPolls));
-
+console.log(sessionStorage.getItem("polls"))
     // Trigger update in the PollList component
     // onPollSubmit(updatedPolls);
 
