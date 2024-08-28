@@ -7,6 +7,7 @@ import Signup from './Signup'
 import Loginpg from './Loginpg';
 import VerifyPg from './Verifypg';
 import Newpassword from './Newpassword';
+import Onepoll from './Components/Onepoll'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
   <Route path="/Loginpg" element={<Loginpg />} />
   <Route path="/Homepage" element={<Homepage />} />
   <Route path='/viewcomment' element={<CommentsComp/>}/>
+  <Route path='/onepoll/:id' element={<Onepoll/>}/>
   </Routes>
 </BrowserRouter>
     </div>

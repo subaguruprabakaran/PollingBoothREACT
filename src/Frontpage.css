@@ -1,6 +1,6 @@
 /* Frontpg.css */
 
-body {
+.bodyy {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -9,13 +9,14 @@ body {
     background-color: #5A8D8E; 
 }
 
-.container {
+.containerrr {
     text-align: center;
     max-width: 400px;
-    margin: auto;
+    margin:auto;
+    margin-top: 215px;
 }
 
-.polling-logo {
+.polling-logoo {
     font-size: 80px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -30,7 +31,7 @@ h1 {
     margin: 20px 0;
 }
 
-.signup-button {
+.signupp-button {
     background-color:#06b4d6 ;
     color: #ffffff;
     border: none;
@@ -42,21 +43,21 @@ h1 {
     width: 100%;
 }
 
-.signup-button:hover {
+.signupp-button:hover {
     background-color: #05cff7;
 }
 
-.login-link {
+.login-linkk {
     margin-top: 20px;
 }
 
-.login-link a {
+.login-linkk a {
     color: #05cff7;
     text-decoration: none;
     font-size: 18px;
 }
 
-.login-link a:hover {
+.login-linkk a:hover {
     text-decoration: underline;
 }
 
@@ -74,7 +75,7 @@ h1 {
 
 /* Frontpg.css */
 
-.polling-logo {
+.polling-logoo {
     max-width: 80%;
     height: auto;
     margin: auto;

@@ -979,7 +979,9 @@ function Signup() {
   const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
-
+let [username,setUsername]=useState(sessionStorage.getItem("username"))
+let [email,setEmail]=useState(sessionStorage.getItem("email"))
+console.log(username,email)
   useEffect(() => {
     if (timer > 0) {
       const intervalId = setInterval(() => {
@@ -1173,6 +1175,7 @@ return (
                 {/* Name */}
                 <Form.Control
                   type="text"
+                 
                   placeholder="Enter name"
                   className="x3"
                   {...formik.getFieldProps("name")}
@@ -1186,6 +1189,7 @@ return (
                   {/* Email */}
                   <Form.Control
                   type="text"
+                
                   placeholder="Email address"
                   className="x4"
                   {...formik.getFieldProps("email")}

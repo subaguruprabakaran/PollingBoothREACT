@@ -680,31 +680,32 @@ function CommentsComp({ cardData, onBackClick }) {
 
   return (
     <Card>
+      <h1>comments</h1>
       <Card.Body>
-        <Button onClick={onBackClick} variant="secondary" className="mb-3">
+        {/* <Button onClick={onBackClick} variant="secondary" className="mb-3">
           <BsBack /> Back to All Polls
-        </Button>
+        </Button> */}
 
         <Card.Header className="d-flex justify-content-between align-items-center">
           <div>
-            <h6>Name: {name}</h6>
-            <p>Created: {createdon}</p>
-            <p>Title: {title}</p>
-            <p>Status: {status}</p>
+            <h6>Name: </h6>
+            <p>Created: </p>
+            <p>Title: </p>
+            <p>Status: </p>
           </div>
           <Button variant="primary">Follow</Button>
         </Card.Header>
 
         <Card.Text>
-          <div className="mt-3 mb-3">{question}</div>
+          <div className="mt-3 mb-3"></div>
           <Card className="mb-3">
             <Card.Body>
               <Card.Header className="d-flex justify-content-between">
-                <p>Poll Ends on {votingPeriod}</p>
-                <p>Category: {category}</p>
+                <p>Poll Ends on </p>
+                <p>Category:</p>
               </Card.Header>
               <Card.Text className="d-flex flex-column">
-                {options.map((option, index) => (
+                {/* {options.map((option, index) => (
                   <div key={index}>
                     {selectedOption === index ? (
                       <ProgressBar
@@ -733,7 +734,7 @@ function CommentsComp({ cardData, onBackClick }) {
                       </div>
                     )}
                   </div>
-                ))}
+                ))} */}
               </Card.Text>
             </Card.Body>
           </Card>
@@ -742,26 +743,26 @@ function CommentsComp({ cardData, onBackClick }) {
         <Card.Footer className="d-flex justify-content-between">
           <p>
             <button
-              onClick={toggleLike}
+              // onClick={toggleLike}
               style={{ background: "none", border: "none", cursor: "pointer" }}
             >
               <FontAwesomeIcon
-                icon={liked ? solidHeart : regularHeart}
+                // icon={liked ? solidHeart : regularHeart}
                 style={{ color: liked ? "red" : "gray", fontSize: "24px" }}
               />
             </button>
-            <span style={{ marginLeft: "8px" }}>{likeCount}</span>
+            {/* <span style={{ marginLeft: "8px" }}>{likeCount}</span> */}
             like
           </p>
 
           <p
             ref={target}
-            onClick={handleShareClick}
+            // onClick={handleShareClick}
             style={{ cursor: "pointer" }}
           >
             <i className="bi bi-share"></i> Share
           </p>
-          <Overlay
+          {/* <Overlay
             show={showOverlay}
             target={target.current}
             placement="top"
@@ -807,10 +808,10 @@ function CommentsComp({ cardData, onBackClick }) {
                 </div>
               </Popover.Body>
             </Popover>
-          </Overlay>
+          </Overlay> */}
         </Card.Footer>
 
-        <Card.Text>
+        {/* <Card.Text>
           <h6>Comments:</h6>
           <ul>
             {comments.map((comment) => (
@@ -848,8 +849,8 @@ function CommentsComp({ cardData, onBackClick }) {
               onChange={(e) => setNewComment(e.target.value)}
             />
             <Button variant="primary" onClick={handleAddComment}>Add Comment</Button>
-          </Form>
-        </Card.Text>
+          </Form> */}
+        {/* </Card.Text> */}
       </Card.Body>
     </Card>
   );

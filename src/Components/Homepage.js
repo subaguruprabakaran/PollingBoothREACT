@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Homepage.css";
+import axios from "axios";
 // /Users/rahul/Desktop/pollingbooth/src/CssComponents
 import { Card, Button,Row,Col,Form ,InputGroup,ProgressBar,Container} from "react-bootstrap";
 import Polllist from "./Polllist";
 import AddPoll from "./AddPoll";
 import Pollresults from "./Pollresults";
 import Userdetails from "./Userdetails";
+import CommentsComp from "./Common/CommentsComp";
 // import logo from './src/images/logo.png';
 
 
 function Homepage() {
  let [page,setPage]=useState('Polllist')
  let [polls, setPolls] = useState([]);
+ const [searchQuery, setSearchQuery] = useState(""); 
 
 
  // Function to handle page navigation
@@ -26,12 +29,33 @@ function Homepage() {
   setPage('Polllist'); // Navigate to Polllist after adding a poll
 };
 
+const handleSearchChange = async (e) => {
+  const query = e.target.value;
+  setSearchQuery(query);
+
+  if (query.trim() === "") {
+    // Clear search results and refetch all polls or handle accordingly
+    setPolls([]); // Optionally clear polls or reset them
+  } else {
+    try {
+      const response = await axios.post("http://92.205.109.210:8028/polls/search", {
+        params: { query }
+      });
+      setPolls(response.data);
+    } catch (error) {
+      console.error("Error searching polls:", error);
+    }
+  }
+};
+
 
  return (
     <div className="polling-booth">
       <header>
         <h1>POLLING BOOTH</h1>
-        <input type="text" placeholder="Search" />
+        <input type="text" placeholder="Search"  
+        value={searchQuery}
+          onChange={handleSearchChange}/>
         <div className="user-info">
           <h4>
             Welcome! User <i class="bi bi-person-circle"></i>
@@ -88,10 +112,11 @@ function Homepage() {
       {page === 'Userdetails' && <Userdetails/>}
  */}
 
-      {page === 'Polllist' && <Polllist polls={polls} />}
+            {page === 'Polllist' && <Polllist polls={polls} page={page} setPage={setPage}/>}
             {page === 'AddPoll' && <AddPoll addNewPoll={addNewPoll} />}
             {page === 'Pollresults' && <Pollresults />}
             {page === 'Userdetails' && <Userdetails />}
+            {page === "Onepoll" && <CommentsComp/>}
 
          
 {/*THIS IS THE FINAL CODE FOR POLE LISTS PAGE */}
@@ -428,6 +453,8 @@ function Homepage() {
         </Card.Footer>
       </Card.Body>
     </Card>  */}
+
+
 
 
 
