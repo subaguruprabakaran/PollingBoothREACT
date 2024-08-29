@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./Homepage.css";
@@ -17,6 +19,19 @@ function Homepage() {
  let [page,setPage]=useState('Polllist')
  let [polls, setPolls] = useState([]);
  const [searchQuery, setSearchQuery] = useState(""); 
+
+ const [trendingPolls, setTrendingPolls] = useState([]);
+
+ useEffect(() => {
+  axios
+    .get("http://92.205.109.210:8028/polls/top3")
+    .then((response) => {
+      setTrendingPolls(response.data);
+    })
+    .catch((error) => {
+      console.error("Error fetching trending polls:", error);
+    });
+}, []);
 
 
  // Function to handle page navigation
@@ -464,186 +479,30 @@ const handleSearchChange = async (e) => {
 
           {/* Add more polls here */}
         </main>
-
         <aside className="trending-polls">
-          <h4>TRENDING POLLS</h4>
-          <hr />
+      <h4>TRENDING POLLS</h4>
+      <hr />
 
-          <nav>
-            {/* Add more trending polls here */}
-            <Card>
-              <Card.Body>
-                <Card.Header>
-                  {" "}
-                  Question: Who will win IPL 2025 Trophy ?
-                </Card.Header>
-                <Card.Text>
-                  <p>
-                    {" "}
-                    <i class="bi bi-check2-circle"></i>Total Votes : 40
-                  </p>
-                  <hr />
-                  <p>
-                    <i class="bi bi-heart-fill"></i> Total Likes: 200
-                  </p>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Header> Question: Job or Bussiness?</Card.Header>
-                <Card.Text>
-                  <p>
-                    {" "}
-                    <i class="bi bi-check2-circle"></i>Total Votes : 140
-                  </p>
-                  <hr />
-                  <p>
-                    <i class="bi bi-heart-fill"></i> Total Likes: 148
-                  </p>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Header>
-                  {" "}
-                  Question: Why do we need Polling Booth ?
-                </Card.Header>
-                <Card.Text>
-                  <p>
-                    {" "}
-                    <i class="bi bi-check2-circle"></i>Total Votes : 234
-                  </p>
-                  <hr />
-                  <p>
-                    <i class="bi bi-heart-fill"></i> Total Likes: 134
-                  </p>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Header>
-                  {" "}
-                  Question: Why do we need Polling Booth ?
-                </Card.Header>
-                <Card.Text>
-                  <p>
-                    {" "}
-                    <i class="bi bi-check2-circle"></i>Total Votes : 234
-                  </p>
-                  <hr />
-                  <p>
-                    <i class="bi bi-heart-fill"></i> Total Likes: 134
-                  </p>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Header> Question: choose between these ?</Card.Header>
-                <Card.Text>
-                  <p>
-                    {" "}
-                    <i class="bi bi-check2-circle"></i>Total Votes : 34
-                  </p>
-                  <hr />
-                  <p>
-                    <i class="bi bi-heart-fill"></i> Total Likes: 14
-                  </p>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Header>
-                  {" "}
-                  Question: How's the climate in Coimbatore ?
-                </Card.Header>
-                <Card.Text>
-                  <p>
-                    {" "}
-                    <i class="bi bi-check2-circle"></i>Total Votes : 294
-                  </p>
-                  <hr />
-                  <p>
-                    <i class="bi bi-heart-fill"></i> Total Likes: 134
-                  </p>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Header>
-                  {" "}
-                  Question: What is the reason for recession?
-                </Card.Header>
-                <Card.Text>
-                  <p>
-                    {" "}
-                    <i class="bi bi-check2-circle"></i>Total Votes : 24
-                  </p>
-                  <hr />
-                  <p>
-                    <i class="bi bi-heart-fill"></i> Total Likes: 14
-                  </p>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Header> Question: How to be self Motivated ?</Card.Header>
-                <Card.Text>
-                  <p>
-                    {" "}
-                    <i class="bi bi-check2-circle"></i>Total Votes : 294
-                  </p>
-                  <hr />
-                  <p>
-                    <i class="bi bi-heart-fill"></i> Total Likes: 1304
-                  </p>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Header>
-                  {" "}
-                  Question: Why do we need Polling Booth ?
-                </Card.Header>
-                <Card.Text>
-                  <p>
-                    {" "}
-                    <i class="bi bi-check2-circle"></i>Total Votes : 234
-                  </p>
-                  <hr />
-                  <p>
-                    <i class="bi bi-heart-fill"></i> Total Likes: 134
-                  </p>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <Card.Header>
-                  {" "}
-                  Question: Why do we need Polling Booth ?
-                </Card.Header>
-                <Card.Text>
-                  <p>
-                    {" "}
-                    <i class="bi bi-check2-circle"></i>Total Votes : 234
-                  </p>
-                  <hr />
-                  <p>
-                    <i class="bi bi-heart-fill"></i> Total Likes: 134
-                  </p>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </nav>
-        </aside>
+      <nav>
+        {trendingPolls.map((poll) => (
+          <Card key={poll._id}>
+            <Card.Body>
+              <Card.Header>Question: {poll.question}</Card.Header>
+              <Card.Text>
+                <p>
+                  <i className="bi bi-check2-circle"></i> Total Votes: {poll.totalVotes}
+                </p>
+                <hr />
+                <p>
+                  <i className="bi bi-heart-fill"></i> Total Likes: {poll.totalLikes}
+                </p>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
+      </nav>
+    </aside>
+
         
       </div>
     </div>
